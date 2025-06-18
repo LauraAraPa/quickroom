@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amenidades - QuickRoom</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="index.html">QuickRoom</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="habitaciones.html">Habitaciones</a></li>
+                    <li class="nav-item"><a class="nav-link" href="amenidades.html">Amenidades</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="reservas.html">Mis Reservas</a></li>
+                </ul>
+                <ul class="navbar-nav ms-auto" id="nav-auth-buttons">
+                    <li class="nav-item"><a href="login.html" class="btn btn-outline-primary me-2">Iniciar Sesión</a></li>
+                    <li class="nav-item"><a href="registro.html" class="btn btn-primary">Registrarse</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <main class="container" style="padding-top: 100px;">
+        <div class="text-center my-5">
+            <h1 class="fw-bold">Amenidades</h1>
+            <p class="text-muted">Porque para disfrutarlas no tienes que ser un huesped</p>
+        </div>
+
+        <div id="reservas-container" class="row">
+            </div>
+    </main>
+
+    <footer class="bg-light text-center text-muted py-4 mt-5">
+        <div class="container">
+            <p>&copy; 2025 QuickRoom. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/reservas.js"></script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickRoom - Registro</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    .navbar-brand span.text-primary { font-weight: 700; }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <span class="text-primary fw-bold">Quick</span>Room
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="habitaciones.html">Habitaciones</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="amenidades.html">Amenidades</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="reservas.html">Reservas</a>
+          </li>
+        </ul>
+        <div id="userMenu" class="d-none">
+          <div class="dropdown">
+            <button class="btn btn-outline-primary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown">
+              <i class="bi bi-person-circle me-1"></i>
+              <span id="userName">Usuario</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="perfil.html">Mi Perfil</a></li>
+              <li><a class="dropdown-item" href="mis-reservas.html">Mis Reservas</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#" onclick="cerrarSesion()">Cerrar Sesión</a></li>
+            </ul>
+          </div>
+        </div>
+        <div id="authButtons" class="d-flex align-items-center">
+          <a href="login.html" class="btn btn-outline-primary me-2">Iniciar Sesión</a>
+          <a href="registro.html" class="btn btn-primary">Registrarse</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contenido Principal -->
+  <div class="container mt-5 pt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card shadow-sm">
+          <div class="card-body p-4">
+            <div class="text-center mb-4">
+              <a href="index.html" class="btn btn-outline-primary mb-3">
+                <i class="bi bi-arrow-left me-2"></i>Volver al Inicio
+              </a>
+              <h2 class="card-title">Crear una cuenta</h2>
+              <p class="text-muted">Únete a QuickRoom y comienza a reservar</p>
+            </div>
+            <form id="registroForm" class="needs-validation" novalidate>
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre completo" required>
+                <label for="nombre">Nombre completo</label>
+                <div class="invalid-feedback">Por favor ingresa tu nombre completo</div>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="identificacion" name="identificacion" placeholder="Número de identificación" required>
+                <label for="identificacion">Número de identificación</label>
+                <div class="invalid-feedback">Por favor ingresa tu número de identificación</div>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="tel" class="form-control" id="celular" name="celular" placeholder="Número de celular" required>
+                <label for="celular">Número de celular</label>
+                <div class="invalid-feedback">Por favor ingresa tu número de celular</div>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Correo electrónico" required>
+                <label for="email">Correo electrónico</label>
+                <div class="invalid-feedback">Por favor ingresa un correo electrónico válido</div>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="contrasena" name="contrasena" placeholder="Contraseña" required>
+                <label for="password">Contraseña</label>
+                <div class="invalid-feedback">Por favor ingresa una contraseña</div>
+              </div>
+              <div class="form-floating mb-4">
+                <select class="form-select" id="pais" name="pais" required>
+                  <option value="">Selecciona un país</option>
+                  <option value="Colombia">Colombia</option>
+                  <option value="México">México</option>
+                  <option value="España">España</option>
+                  <option value="Argentina">Argentina</option>
+                  <option value="Chile">Chile</option>
+                </select>
+                <label for="pais">País</label>
+                <div class="invalid-feedback">Por favor selecciona un país</div>
+              </div>
+              <button type="submit" class="btn btn-primary w-100 mb-3">Registrarse</button>
+              <div class="text-center">
+                <p class="mb-0">¿Ya tienes una cuenta? <a href="login.html" class="text-primary">Inicia sesión</a></p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Moderno -->
+  <footer class="bg-dark text-light py-4 mt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h5>QuickRoom</h5>
+          <p>Tu destino para una estadía perfecta.</p>
+        </div>
+        <div class="col-md-4">
+          <h5>Contacto</h5>
+          <p>
+            <i class="bi bi-geo-alt me-2"></i> Calle Principal #123<br>
+            <i class="bi bi-telephone me-2"></i> +57 123 456 7890<br>
+            <i class="bi bi-envelope me-2"></i> info@quickroom.com
+          </p>
+        </div>
+        <div class="col-md-4">
+          <h5>Síguenos</h5>
+          <div class="social-links">
+            <a href="#" class="text-light me-3"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="text-light me-3"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="text-light me-3"><i class="bi bi-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/registro.js"></script>
+</body>
+</html>

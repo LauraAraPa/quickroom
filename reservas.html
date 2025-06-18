@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickRoom - Crear Reserva</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="index.html">QuickRoom</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="habitaciones.html">Habitaciones</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="amenidades.html">Amenidades</a>
+                    </li>
+                </ul>
+                <div id="user-menu" class="d-none">
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i>
+                            <span id="user-name">Usuario</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="perfil.html">Mi Perfil</a></li>
+                            <li><a class="dropdown-item" href="mis-reservas.html">Mis Reservas</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" onclick="logout()">Cerrar Sesión</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="login-buttons" class="d-flex align-items-center">
+                    <a href="login.html" class="btn btn-outline-primary me-2">Iniciar Sesión</a>
+                    <a href="registro.html" class="btn btn-primary">Registrarse</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container" style="padding-top: 80px;">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h2 class="card-title text-center mb-4">Confirmar Reserva</h2>
+                        <div id="room-details" class="mb-4">
+                            <!-- Los detalles de la habitación se cargarán aquí -->
+                        </div>
+                        <form id="formReserva">
+                            <input type="hidden" id="idHabitacion">
+                            
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="nombreCompleto" class="form-label">Nombre Completo</label>
+                                    <input type="text" class="form-control" id="nombreCompleto" disabled>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label">Correo Electrónico</label>
+                                    <input type="email" class="form-control" id="email" disabled>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="cedula" class="form-label">Número de Cédula</label>
+                                    <input type="text" class="form-control" id="cedula" disabled>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="celular" class="form-label">Número de Celular</label>
+                                    <input type="text" class="form-control" id="celular" disabled>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="fechaEntrada" class="form-label">Fecha de Entrada</label>
+                                    <input type="date" class="form-control" id="fechaEntrada" readonly>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="fechaSalida" class="form-label">Fecha de Salida</label>
+                                    <input type="date" class="form-control" id="fechaSalida" readonly>
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="numeroPersonas" class="form-label">Número de Personas</label>
+                                    <input type="number" class="form-control" id="numeroPersonas" required min="1">
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid mt-4">
+                                <button type="submit" class="btn btn-primary btn-lg">Confirmar y Pagar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/session.js"></script>
+    <script src="js/reservas.js"></script>
+</body>
+</html>

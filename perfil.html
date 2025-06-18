@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickRoom - Mi Perfil</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="index.html">QuickRoom</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="habitaciones.html">Habitaciones</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="amenidades.html">Amenidades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="reservas.html">Reservas</a>
+                    </li>
+                </ul>
+                <div id="user-menu" class="d-none">
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i>
+                            <span id="user-name">Usuario</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="perfil.html">Mi Perfil</a></li>
+                            <li><a class="dropdown-item" href="mis-reservas.html">Mis Reservas</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" onclick="logout()">Cerrar Sesión</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="login-buttons" class="d-flex align-items-center">
+                    <a href="login.html" class="btn btn-outline-primary me-2">Iniciar Sesión</a>
+                    <a href="registro.html" class="btn btn-primary">Registrarse</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-5 pt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <div class="text-center mb-4">
+                            <i class="bi bi-person-circle" style="font-size: 4rem; color: var(--primary-color);"></i>
+                            <h2 class="mt-3" id="nombreUsuario">Cargando...</h2>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="nombre" placeholder="Nombre" readonly>
+                                    <label for="nombre">Nombre</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="identificacion" placeholder="Número de Identificación" readonly>
+                                    <label for="identificacion">Número de Identificación</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="tel" class="form-control" id="celular" placeholder="Número de Celular" readonly>
+                                    <label for="celular">Número de Celular</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="email" class="form-control" id="email" placeholder="Correo Electrónico" readonly>
+                                    <label for="email">Correo Electrónico</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="pais" placeholder="País" readonly>
+                                    <label for="pais">País</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <div>
+                                <button class="btn btn-outline-primary" id="btnEditar">
+                                    <i class="bi bi-pencil-square"></i> Editar Perfil
+                                </button>
+                                <button class="btn btn-primary" id="btnGuardar" style="display: none;">
+                                    <i class="bi bi-save"></i> Guardar Cambios
+                                </button>
+                            </div>
+                            <button class="btn btn-danger" id="btnEliminar">
+                                <i class="bi bi-trash"></i> Eliminar Perfil
+                            </button>
+                        </div>
+
+                        <div class="d-flex justify-content-center gap-3 mt-4">
+                            <a href="index.html" class="btn btn-outline-primary">
+                                <i class="bi bi-house"></i> Inicio
+                            </a>
+                            <a href="mis-reservas.html" class="btn btn-primary">
+                                <i class="bi bi-calendar-check"></i> Mis Reservas
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-light text-center text-muted py-4">
+        <div class="container">
+            <p>&copy; 2025 QuickRoom. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/session.js"></script>
+    <script src="js/perfil.js"></script>
+</body>
+</html>
