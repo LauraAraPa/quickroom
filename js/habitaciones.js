@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }).format(precio);
     }
 
+    // Laura
+
     // Función para mostrar los detalles de la habitación, ahora global
     window.mostrarDetalles = function(habitacionId) {
         window.location.href = `detalle-habitacion.html?id=${habitacionId}`;
