@@ -111,25 +111,32 @@ document.addEventListener('DOMContentLoaded', () => {
     cargarDetallesHabitacion();
 });
 
-// Función para manejar la reserva
+// Se añade la función de reserva aquí para que sea global y accesible desde el HTML
 function manejarReserva() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const habitacionId = urlParams.get('id');
+
     const checkIn = document.getElementById('check-in').value;
     const checkOut = document.getElementById('check-out').value;
-
+    
     if (!checkIn || !checkOut) {
-        alert('Por favor, selecciona las fechas de llegada y salida.');
+        alert('Por favor, selecciona las fechas de entrada y salida');
         return;
     }
-
-    if (!isLoggedIn()) {
-        // Guardar los datos de la reserva en sessionStorage
-        sessionStorage.setItem('habitacionReserva', window.location.search.split('=')[1]);
+    
+    // Verificar si el usuario está autenticado
+    const token = localStorage.getItem('user'); // Se verifica 'user' para consistencia
+    
+    if (!token) {
+        // Guardar los datos de la reserva en sessionStorage para recuperarlos después del login
+        sessionStorage.setItem('habitacionReserva', habitacionId);
         sessionStorage.setItem('fechaEntrada', checkIn);
         sessionStorage.setItem('fechaSalida', checkOut);
-        // Redirigir a login
+        
+        // Redirigir al login
         window.location.href = 'login.html';
     } else {
-        // Si está logueado, redirigir a la página de reservas con todos los parámetros
-        window.location.href = `reservas.html${window.location.search}&check-in=${checkIn}&check-out=${checkOut}`;
+        // Redirigir a la página de reservas con los datos. Se usa 'habitacion' como clave en la URL.
+        window.location.href = `reservas.html?habitacion=${habitacionId}&check-in=${checkIn}&check-out=${checkOut}`;
     }
 } 

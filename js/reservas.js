@@ -57,15 +57,17 @@ document.addEventListener("DOMContentLoaded", () => {
         submitButton.disabled = true;
         submitButton.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Creando...`;
 
-        // Corregido: El campo esperado por el backend es 'habitacion', no 'idHabitacion'.
+        // Corregido: Se elimina el campo 'id' para que el backend lo genere automáticamente.
         const nuevaReserva = {
             idUsuario: currentUser.id,
-            habitacion: parseInt(idHabitacionInput.value, 10),
+            idHabitacion: parseInt(idHabitacionInput.value, 10),
             fechaEntrada: fechaEntradaInput.value,
             fechaSalida: fechaSalidaInput.value,
             numeroPersonas: parseInt(numeroPersonasInput.value, 10)
         };
         
+        console.log("Enviando al backend:", nuevaReserva);
+
         if (new Date(nuevaReserva.fechaSalida) <= new Date(nuevaReserva.fechaEntrada)) {
             alert('La fecha de salida debe ser posterior a la fecha de entrada.');
             submitButton.disabled = false;
