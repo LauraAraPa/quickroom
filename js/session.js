@@ -82,7 +82,7 @@ function checkPageAccess() {
     const adminRestrictedPages = ['/registro.html', '/reservas.html', '/mis-reservas.html', '/editar-reserva.html'];
     
     // Páginas que SIEMPRE requieren que el usuario haya iniciado sesión
-    const authRequiredPages = ['/perfil.html', '/reservas.html', '/mis-reservas.html', '/editar-reserva.html'];
+    const authRequiredPages = ['/perfil.html', '/reservas.html', '/mis-reservas.html', '/editar-reserva.html', '/gestion-habitacion.html'];
 
     // Página no visible para ningún rol
     if (currentPage.endsWith('/amenidades.html')) {
@@ -102,6 +102,11 @@ function checkPageAccess() {
         // Y es un admin intentando acceder a una página restringida para él
         if (user.isAdmin && adminRestrictedPages.some(page => currentPage.endsWith(page))) {
             window.location.href = 'index.html';
+            return;
+        }
+        // Y NO es admin pero intenta acceder a la gestión de habitaciones
+        if (!user.isAdmin && currentPage.endsWith('/gestion-habitacion.html')) {
+            window.location.href = 'habitaciones.html';
             return;
         }
     }
