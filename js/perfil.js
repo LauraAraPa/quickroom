@@ -18,7 +18,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnEditar = document.getElementById('btnEditar');
     const btnGuardar = document.getElementById('btnGuardar');
     const btnEliminar = document.getElementById('btnEliminar');
+    const btnMisReservas = document.getElementById('btnMisReservas');
     const formInputs = [nombre, celular, pais];
+
+    // --- Lógica de visibilidad por rol ---
+    if (usuarioActual.isAdmin) {
+        if (btnMisReservas) {
+            btnMisReservas.style.display = 'none';
+        }
+    }
 
     // Cargar datos del usuario
     function cargarDatosUsuario() {

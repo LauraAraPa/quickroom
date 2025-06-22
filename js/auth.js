@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 );
 
                 if (usuarioValido) {
+                    
                     // Login exitoso. Se guarda en localStorage con la clave 'user' para consistencia.
                     localStorage.setItem('user', JSON.stringify(usuarioValido));
                     
