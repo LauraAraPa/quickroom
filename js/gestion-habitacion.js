@@ -22,6 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const tipoCamaInput = document.getElementById('tipo_de_cama');
     const precioInput = document.getElementById('precio_habitacion');
     const descripcionInput = document.getElementById('descripcion');
+    const disponibleInput = document.getElementById('disponible');
+    const imagenUrlInput = document.getElementById('imagen_url');
 
     // --- Lógica de inicialización ---
     const initializeForm = async () => {
@@ -36,7 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 numCamasInput.value = habitacion.numero_de_camas;
                 tipoCamaInput.value = habitacion.tipo_de_cama;
                 precioInput.value = habitacion.precio_habitacion;
-                descripcionInput.value = habitacion.descripcion;
+                descripcionInput.value = habitacion.descripcion || '';
+                disponibleInput.checked = habitacion.disponible;
 
             } catch (error) {
                 alert(`Error al cargar los datos: ${error.message}`);
@@ -58,7 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
             numero_de_camas: parseInt(numCamasInput.value, 10),
             tipo_de_cama: tipoCamaInput.value,
             precio_habitacion: parseFloat(precioInput.value),
-            descripcion: descripcionInput.value
+            descripcion: descripcionInput.value,
+            disponible: disponibleInput.checked
         };
 
         try {

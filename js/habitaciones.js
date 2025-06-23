@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'Familiar': "https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
         'Doble': "https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
         'Sencilla': "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
-        'Suite Ejecutiva': "https://images.unsplash.com/photo-1591088398332-8a7791972843?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80"
+        'Nueva Habitacion': "https://images.unsplash.com/photo-1591088398332-8a7791972843?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80"
     };
     
     // Función para formatear el precio a COP
@@ -22,8 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
             minimumFractionDigits: 0
         }).format(precio);
     }
-
-    // Laura
 
     // Función para mostrar los detalles de la habitación, ahora global
     window.mostrarDetalles = function(habitacionId) {
@@ -62,8 +60,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) {
                 throw new Error('No se pudieron cargar los datos de las habitaciones.');
             }
-            const habitaciones = await response.json();
+            let habitaciones = await response.json();
             
+            // Si el usuario no es admin, filtrar para mostrar solo habitaciones disponibles
+            if (!isAdmin) {
+                habitaciones = habitaciones.filter(h => h.disponible);
+            }
+
             if (habitaciones.length === 0 && !isAdmin) {
                 habitacionesContainer.innerHTML = `<div class="alert alert-warning">No hay habitaciones disponibles en este momento.</div>`;
                 return;
@@ -90,12 +93,19 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     `;
 
+                const disponibilidadBadge = habitacion.disponible
+                    ? `<span class="badge bg-success">Disponible</span>`
+                    : `<span class="badge bg-danger">No Disponible</span>`;
+
                 return `
                     <div class="col-md-6 col-lg-3 mb-4 d-flex align-items-stretch">
                         <div class="card h-100 shadow-sm room-card w-100">
                             <img src="${imagenesHabitacion[habitacion.tipo_habitacion] || imagenesHabitacion['Doble']}" class="card-img-top" alt="${habitacion.tipo_habitacion}" style="height: 200px; object-fit: cover;">
                             <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">${habitacion.tipo_habitacion}</h5>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h5 class="card-title mb-0">${habitacion.tipo_habitacion}</h5>
+                                    ${disponibilidadBadge}
+                                </div>
                                 <p class="card-text">
                                     <small class="text-muted">
                                         <i class="bi bi-people"></i> Camas: ${habitacion.numero_de_camas} (${habitacion.tipo_de_cama})<br>
