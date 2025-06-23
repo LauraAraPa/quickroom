@@ -67,7 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 pais: pais.value,
                 // NOTA: Se recomienda no enviar la contraseña de esta manera.
                 // Se mantiene por consistencia con la estructura de datos existente.
-                contrasena: usuarioActual.contrasena 
+                contrasena: usuarioActual.contrasena,
+                isAdmin: usuarioActual.isAdmin
             };
 
             const response = await fetch(`http://localhost:8080/api/usuarios/${usuarioActual.id}`, {
@@ -86,13 +87,25 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('user', JSON.stringify(data));
             usuarioActual = data;
             
-            alert('Perfil actualizado correctamente');
+            Swal.fire({
+                icon: 'success',
+                title: '¡Guardado!',
+                text: 'Perfil actualizado correctamente.',
+                timer: 5000,
+                showConfirmButton: false
+            });
             deshabilitarEdicion();
             cargarDatosUsuario();
 
         } catch (error) {
             console.error('Error:', error);
-            alert(`Error al guardar los cambios: ${error.message}`);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: `Error al guardar los cambios: ${error.message}`,
+                timer: 5000,
+                showConfirmButton: false
+            });
         } finally {
             btnGuardar.disabled = false;
             btnGuardar.innerHTML = `<i class="bi bi-save"></i> Guardar Cambios`;
@@ -101,25 +114,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Eliminar perfil
     async function eliminarPerfil() {
-        if (confirm('¿Está seguro que desea eliminar su perfil? Esta acción no se puede deshacer.')) {
-            try {
-                const response = await fetch(`http://localhost:8080/api/usuarios/${usuarioActual.id}`, {
-                    method: 'DELETE'
-                });
+        Swal.fire({
+            title: '¿Está seguro que desea eliminar su perfil?',
+            text: "¡Esta acción no se puede deshacer!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminar mi perfil',
+            cancelButtonText: 'Cancelar'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const response = await fetch(`http://localhost:8080/api/usuarios/${usuarioActual.id}`, {
+                        method: 'DELETE'
+                    });
 
-                if (!response.ok) {
-                    throw new Error('Error al eliminar el perfil');
+                    if (!response.ok) {
+                        throw new Error('Error al eliminar el perfil');
+                    }
+
+                    localStorage.removeItem('user');
+                    await Swal.fire(
+                        '¡Eliminado!',
+                        'Tu perfil ha sido eliminado.',
+                        'success'
+                    );
+                    window.location.href = 'index.html';
+
+                } catch (error) {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: `Error al eliminar el perfil: ${error.message}`,
+                        timer: 5000,
+                        showConfirmButton: false
+                    });
                 }
-
-                localStorage.removeItem('user');
-                alert('Perfil eliminado correctamente.');
-                window.location.href = 'index.html';
-
-            } catch (error) {
-                console.error('Error:', error);
-                alert(`Error al eliminar el perfil: ${error.message}`);
             }
-        }
+        });
     }
 
     // Event Listeners

@@ -83,18 +83,19 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             if (response.ok) {
-                alert("¡Reserva creada exitosamente!");
+                await showAlert('Reserva Exitosa', 'Tu reserva ha sido creada con éxito.', 'success');
                 window.location.href = 'mis-reservas.html';
             } else {
-                const errorData = await response.text(); // Usar .text() por si el error no es JSON
-                alert(`Error al crear la reserva: ${errorData || 'Intenta de nuevo.'}`);
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'No se pudo crear la reserva.');
             }
+
         } catch (error) {
-            console.error("Error al crear la reserva:", error);
-            alert("Error de conexión al intentar crear la reserva.");
+            console.error('Error al crear la reserva:', error);
+            showNotification(error.message, 'error');
         } finally {
             submitButton.disabled = false;
-            submitButton.innerHTML = originalButtonText;
+            submitButton.innerHTML = 'Confirmar y Pagar';
         }
     });
 });

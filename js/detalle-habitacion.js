@@ -120,7 +120,13 @@ function manejarReserva() {
     const checkOut = document.getElementById('check-out').value;
     
     if (!checkIn || !checkOut) {
-        alert('Por favor, selecciona las fechas de entrada y salida');
+        Swal.fire({
+            icon: 'warning',
+            title: 'Faltan fechas',
+            text: 'Por favor, selecciona las fechas de entrada y salida',
+            timer: 5000,
+            showConfirmButton: false
+        });
         return;
     }
     

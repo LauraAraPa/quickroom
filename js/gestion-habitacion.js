@@ -27,6 +27,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Lógica de inicialización ---
     const initializeForm = async () => {
+        if (!currentUser || !currentUser.isAdmin) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Acceso Denegado',
+                text: 'Esta sección es solo para administradores.',
+                timer: 5000,
+                showConfirmButton: false,
+            }).then(() => {
+                window.location.href = 'habitaciones.html';
+            });
+            return;
+        }
+
         if (isEditMode) {
             formTitle.textContent = 'Editar Habitación';
             try {
@@ -42,7 +55,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 disponibleInput.checked = habitacion.disponible;
 
             } catch (error) {
-                alert(`Error al cargar los datos: ${error.message}`);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al cargar',
+                    text: error.message,
+                    timer: 5000,
+                    showConfirmButton: false
+                });
                 window.location.href = 'habitaciones.html';
             }
         }
@@ -80,11 +99,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error(errorData.message || 'Ocurrió un error al guardar la habitación.');
             }
 
-            alert(`Habitación ${isEditMode ? 'actualizada' : 'creada'} correctamente.`);
-            window.location.href = 'habitaciones.html';
+            const successMsg = isEditMode ? 'Habitación actualizada correctamente.' : 'Habitación creada correctamente.';
+            Swal.fire({
+                icon: 'success',
+                title: '¡Éxito!',
+                text: successMsg,
+            }).then(() => {
+                window.location.href = 'habitaciones.html';
+            });
 
         } catch (error) {
-            alert(`Error: ${error.message}`);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al guardar',
+                text: error.message,
+                timer: 5000,
+                showConfirmButton: false
+            });
             submitButton.disabled = false;
             submitButton.innerHTML = originalButtonText;
         }

@@ -16,18 +16,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         searchForm.addEventListener('submit', function(event) {
-            event.preventDefault(); // Evitar el envío real del formulario
-
+            event.preventDefault();
             const checkIn = document.getElementById('check-in').value;
             const checkOut = document.getElementById('check-out').value;
 
-            if (!checkIn || !checkOut) {
-                alert('Por favor, selecciona las fechas de llegada y salida.');
-                return;
+            if (checkIn && checkOut) {
+                // Redirigir a la página de habitaciones con los parámetros de fecha
+                window.location.href = `habitaciones.html?check-in=${checkIn}&check-out=${checkOut}`;
+            } else {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Faltan fechas',
+                    text: 'Por favor, selecciona las fechas de llegada y salida.',
+                    timer: 5000,
+                    showConfirmButton: false
+                });
             }
-
-            // Redirigir a la página de habitaciones con los parámetros de fecha
-            window.location.href = `habitaciones.html?check-in=${checkIn}&check-out=${checkOut}`;
         });
     }
 });

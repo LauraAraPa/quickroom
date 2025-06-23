@@ -38,18 +38,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.eliminarHabitacion = async function(habitacionId) {
-        if (confirm('¿Está seguro de que desea eliminar esta habitación?')) {
-            try {
-                const response = await fetch(`${API_URL_HABITACIONES}/${habitacionId}`, { method: 'DELETE' });
-                if (!response.ok) throw new Error('No se pudo eliminar la habitación.');
-                
-                alert('Habitación eliminada correctamente.');
-                cargarHabitaciones(); // Recargar la lista
-            } catch (error) {
-                alert(`Error: ${error.message}`);
-                console.error("Error al eliminar habitación:", error);
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡Tu habitación será eliminada!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, ¡eliminar!',
+            cancelButtonText: 'Cancelar'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const response = await fetch(`${API_URL_HABITACIONES}/${habitacionId}`, { method: 'DELETE' });
+                    if (!response.ok) throw new Error('No se pudo eliminar la habitación.');
+                    
+                    Swal.fire(
+                        '¡Eliminada!',
+                        'La habitación ha sido eliminada.',
+                        'success'
+                    );
+                    cargarHabitaciones(); // Recargar la lista
+                } catch (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: `Error: ${error.message}`,
+                    });
+                    console.error("Error al eliminar habitación:", error);
+                }
             }
-        }
+        });
     }
 
     // Cargar y renderizar las habitaciones desde la API
@@ -136,7 +155,13 @@ document.addEventListener('DOMContentLoaded', () => {
             habitacionesContainer.innerHTML = habitacionesHtml;
 
         } catch (error) {
-            habitacionesContainer.innerHTML = `<div class="alert alert-danger">${error.message}</div>`;
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al cargar',
+                text: error.message,
+                timer: 5000,
+                showConfirmButton: false
+            });
             console.error("Error al cargar habitaciones:", error);
         }
     };

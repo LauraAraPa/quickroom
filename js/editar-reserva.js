@@ -13,8 +13,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const reservaId = params.get('id');
 
     if (!reservaId) {
-        alert('No se ha especificado una reserva para editar.');
-        window.location.href = 'mis-reservas.html';
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se ha especificado una reserva para editar.',
+            timer: 5000,
+            showConfirmButton: false
+        }).then(() => {
+            window.location.href = 'mis-reservas.html';
+        });
         return;
     }
 
@@ -28,8 +35,13 @@ document.addEventListener('DOMContentLoaded', () => {
             // Verificar que el usuario actual es el dueño de la reserva
             const currentUser = getCurrentUser();
             if (reserva.idUsuario !== currentUser.id) {
-                alert('No tienes permiso para editar esta reserva.');
-                window.location.href = 'mis-reservas.html';
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Acceso Denegado',
+                    text: 'No tienes permiso para editar esta reserva.',
+                    timer: 5000,
+                    showConfirmButton: false
+                }).then(() => window.location.href = 'mis-reservas.html');
                 return;
             }
 
@@ -47,8 +59,13 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('numeroPersonas').value = reserva.numeroPersonas;
 
         } catch (error) {
-            console.error('Error cargando datos de la reserva:', error);
-            alert('Error al cargar la información para editar.');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al cargar',
+                text: 'No se pudo cargar la información para editar.',
+                timer: 5000,
+                showConfirmButton: false
+            }).then(() => window.location.href = 'mis-reservas.html');
         }
     };
 
@@ -73,14 +90,22 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (response.ok) {
-                alert('Reserva actualizada correctamente.');
-                window.location.href = 'mis-reservas.html';
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Actualizada!',
+                    text: 'Reserva actualizada correctamente.',
+                }).then(() => window.location.href = 'mis-reservas.html');
             } else {
-                alert('No se pudo actualizar la reserva.');
+                throw new Error('No se pudo actualizar la reserva.');
             }
         } catch (error) {
-            console.error('Error al actualizar la reserva:', error);
-            alert('Error de conexión al guardar los cambios.');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al guardar',
+                text: 'Hubo un problema al guardar los cambios.',
+                timer: 5000,
+                showConfirmButton: false
+            });
         }
     });
 
