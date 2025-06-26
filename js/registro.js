@@ -79,9 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             
             if (response.ok) {
-                // Guardar el token y los datos del usuario
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('user', JSON.stringify(data.usuario));
                 
                 // Verificar si hay una habitación pendiente de reserva
                 const habitacionReserva = sessionStorage.getItem('habitacionReserva');

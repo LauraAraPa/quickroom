@@ -99,3 +99,26 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+// Función para mostrar alertas usando SweetAlert2
+function showAlert(title, text, icon = 'info') {
+    return Swal.fire({
+        title: title,
+        text: text,
+        icon: icon,
+        confirmButtonText: 'OK'
+    });
+}
+
+// Función para mostrar notificaciones de error usando SweetAlert2
+function showNotification(message, type = 'info') {
+    Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: type,
+        title: message,
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true
+    });
+}

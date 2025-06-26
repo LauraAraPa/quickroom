@@ -79,19 +79,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 4. Función para cancelar una reserva
     const cancelarReserva = async (reservaId) => {
-        if (!confirm('¿Estás seguro de que quieres cancelar esta reserva?')) return;
+        const result = await Swal.fire({
+            title: '¿Estás seguro de cancelar esta reserva?',
+            text: 'Esta acción no se puede deshacer.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, cancelar',
+            cancelButtonText: 'No, mantener'
+        });
+        if (!result.isConfirmed) return;
         
         try {
             const response = await fetch(`${API_URL}/${reservaId}`, { method: 'DELETE' });
             if (response.ok) {
-                alert('Reserva cancelada exitosamente.');
+                await showAlert('Reserva cancelada', 'La reserva ha sido cancelada exitosamente.', 'success');
                 cargarMisReservas(); // Recargar la lista de reservas
             } else {
                 throw new Error('No se pudo cancelar la reserva.');
             }
         } catch (error) {
             console.error('Error al cancelar reserva:', error);
-            alert(`Error: ${error.message}`);
+            showAlert('Error', error.message, 'error');
         }
     };
 
@@ -115,4 +125,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 6. Carga inicial de las reservas
     cargarMisReservas();
-}); 
+});
+
+// Función para mostrar alertas usando SweetAlert2
+function showAlert(title, text, icon = 'info') {
+    return Swal.fire({
+        title: title,
+        text: text,
+        icon: icon,
+        confirmButtonText: 'OK'
+    });
+} 
